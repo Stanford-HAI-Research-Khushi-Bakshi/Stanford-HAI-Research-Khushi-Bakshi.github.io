@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>ABC Tutoring | Assessment Traffic Simulator</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2323304a'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Arial' font-size='22' fill='white'%3ETEST%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="posthog-config.js"></script>
+    <script src="traffic-simulator.js" defer></script>
+  </head>
+  <body class="simulator-page">
+    <main class="simulator-shell">
+      <a class="simulator-back" href="index.html">← Back to ABC Tutoring</a>
+      <section class="simulator-card" aria-labelledby="simulator-title">
+        <p class="utility-badge">Assessment / demo utility</p>
+        <h1 id="simulator-title">Anonymous traffic simulator</h1>
+        <p class="simulator-intro">
+          This utility is not part of the customer-facing website. It sends realistic,
+          anonymous demo journeys to the configured PostHog project so the assessment
+          dashboard can show tutor interest, subject demand, and booking drop-off.
+        </p>
+        <div class="privacy-panel">
+          <strong>No personal data</strong>
+          <p>Simulations never include parent names, student names, emails, phone numbers, or booking details. They do not read or change customer-site bookings.</p>
+        </div>
+        <div class="simulator-actions" aria-label="Traffic simulation presets">
+          <button class="button button-primary" type="button" data-simulate="10">Simulate 10 visitors</button>
+          <button class="button button-secondary" type="button" data-simulate="25">Simulate 25 visitors</button>
+        </div>
+        <div id="simulation-status" class="simulation-status" role="status" aria-live="polite">
+          Ready to generate anonymous demo traffic.
+        </div>
+        <div class="simulator-explainer">
+          <h2>Each batch includes</h2>
+          <ul>
+            <li>Several tutor profile views across the existing sample tutors</li>
+            <li>A mix of Math, English, Science, Test Prep, and Study Skills filters</li>
+            <li>Some booking starts and fewer booking completions to show funnel drop-off</li>
+            <li>Anonymous page views and grade-filter selections</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,7 +1,6 @@
-// PostHog configuration uses the public Project API Key and ingestion host.
-// Never place a PostHog personal API key in this client-side file.
-const POSTHOG_KEY = "phc_vNsCKbNJaKWhFq6ZFZeog2MCeqMPXQxXtr3CUChtooyA";
-const POSTHOG_HOST = "https://us.i.posthog.com";
+// Public configuration is shared with traffic-simulator.html.
+const POSTHOG_KEY = window.ABC_POSTHOG_CONFIG?.key || "";
+const POSTHOG_HOST = window.ABC_POSTHOG_CONFIG?.host || "";
 
 const STORAGE_KEY = "abcTutoringBookings";
 
@@ -133,7 +132,8 @@ function initializePostHog() {
     ["capture", "identify", "alias", "reset", "register", "register_once", "unregister"].forEach((method) => {
       posthog[method] = (...args) => posthog.push([method, ...args]);
     });
-    posthog._i.push([key, config]);
+    // The CDN bootstrap expects the default instance name as the third value.
+    posthog._i.push([key, config, "posthog"]);
     const script = document.createElement("script");
     script.async = true;
     script.crossOrigin = "anonymous";
@@ -203,11 +203,13 @@ function populateSubjects() {
 }
 
 function tutorCard(tutor) {
+  const nextAvailable = tutor.slots.find((slot) => !isBooked(tutor.id, slot));
   const slots = tutor.slots.map((slot) => {
     const booked = isBooked(tutor.id, slot);
     const id = slotId(tutor.id, slot);
-    return `<button class="slot-button" type="button" data-tutor-id="${tutor.id}" data-slot-id="${id}" ${booked ? "disabled" : ""} aria-pressed="false">
-      ${formatDate(slot.date)} · ${slot.time}${booked ? " · Booked" : ""}
+    const slotLabel = `${formatDate(slot.date)} at ${slot.time}`;
+    return `<button class="slot-button${booked ? " unavailable" : ""}" type="button" data-tutor-id="${tutor.id}" data-slot-id="${id}" ${booked ? "disabled" : ""} aria-label="${slotLabel}${booked ? ", unavailable" : ", available"}" aria-pressed="false">
+      <span>${formatDate(slot.date)} · ${slot.time}</span>${booked ? "<strong>Unavailable</strong>" : ""}
     </button>`;
   }).join("");
 
@@ -216,17 +218,24 @@ function tutorCard(tutor) {
       <div class="avatar ${tutor.avatarClass}" role="img" aria-label="Friendly avatar of ${tutor.name}">${tutor.initials}</div>
       <div>
         <h3 class="tutor-name">${tutor.name}</h3>
-        <p class="qualification">${tutor.qualification}</p>
+        <p class="tutor-specialty">${tutor.subjects.join(" · ")}</p>
       </div>
       <div class="rate">$${tutor.rate}<small>/hour</small></div>
     </div>
-    <div class="tag-list">${tutor.subjects.map((subject) => `<span class="tag">${subject}</span>`).join("")}</div>
-    <p class="grade-copy"><strong>Best for:</strong> ${tutor.gradeLabel}</p>
-    <p class="bio">${tutor.bio}</p>
+    <div class="profile-scan">
+      <div><span class="scan-label">Subjects</span><div class="tag-list">${tutor.subjects.map((subject) => `<span class="tag">${subject}</span>`).join("")}</div></div>
+      <div><span class="scan-label">Grade levels</span><strong>${tutor.gradeLabel}</strong></div>
+      <div><span class="scan-label">Qualifications</span><strong>${tutor.qualification}</strong></div>
+      <div class="experience"><span class="scan-label">Experience</span><p>${tutor.bio}</p></div>
+    </div>
+    <div class="next-available${nextAvailable ? "" : " sold-out"}">
+      <span>Next available</span>
+      <strong>${nextAvailable ? `${formatDate(nextAvailable.date)} · ${nextAvailable.time}` : "No open times"}</strong>
+    </div>
     <div class="availability">
       <h4>Choose an available time</h4>
       <div class="slot-list">${slots}</div>
-      <button class="button button-primary card-action" type="button" data-book-tutor="${tutor.id}" disabled>Book Session</button>
+      <button class="button button-primary card-action" type="button" data-book-tutor="${tutor.id}" disabled>Select a time to book</button>
     </div>
   </article>`;
 }
@@ -278,8 +287,9 @@ function clearFilters() {
 
 function selectSlot(button) {
   const tutor = tutors.find((item) => item.id === button.dataset.tutorId);
+  if (!tutor) return;
   const slot = tutor.slots.find((item) => slotId(tutor.id, item) === button.dataset.slotId);
-  if (!tutor || !slot || isBooked(tutor.id, slot)) {
+  if (!slot || isBooked(tutor.id, slot)) {
     renderTutors();
     showToast("That time was just booked. Please choose another opening.");
     return;
@@ -289,7 +299,9 @@ function selectSlot(button) {
   document.querySelectorAll("[data-book-tutor]").forEach((item) => { item.disabled = true; });
   button.setAttribute("aria-pressed", "true");
   const card = button.closest(".tutor-card");
-  card.querySelector("[data-book-tutor]").disabled = false;
+  const bookButton = card.querySelector("[data-book-tutor]");
+  bookButton.disabled = false;
+  bookButton.textContent = `Book ${formatDate(slot.date)} at ${slot.time}`;
   selectedTutor = tutor;
   selectedSlot = slot;
 }
@@ -359,6 +371,7 @@ function completeBooking(event) {
   });
 
   document.querySelector("#confirmation-details").innerHTML = `
+    <div class="reservation-status"><span aria-hidden="true">✓</span><strong>Reserved</strong></div>
     <dl>
       <div><dt>Student</dt><dd>${escapeHtml(booking.studentName)}</dd></div>
       <div><dt>Tutor</dt><dd>${escapeHtml(booking.tutorName)}</dd></div>
@@ -411,6 +424,10 @@ document.querySelectorAll("[data-subject-jump]").forEach((button) => {
 
 document.querySelectorAll("[data-close-dialog]").forEach((button) => button.addEventListener("click", () => bookingDialog.close()));
 document.querySelector("[data-close-confirmation]").addEventListener("click", () => confirmationDialog.close());
+document.querySelector("[data-book-another]").addEventListener("click", () => {
+  confirmationDialog.close();
+  document.querySelector("#tutors").scrollIntoView({ behavior: "smooth" });
+});
 bookingForm.addEventListener("submit", completeBooking);
 
 document.querySelector("#reset-bookings").addEventListener("click", () => {

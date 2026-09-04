@@ -11,6 +11,7 @@ A polished, responsive static prototype for a friendly K–12 tutoring service. 
 - Immediate slot locking to prevent double-booking on the same device
 - Friendly confirmation details without pretending to send email or SMS
 - Optional PostHog product analytics with no booking PII in event properties
+- Isolated assessment traffic simulator that never changes customer bookings
 - Responsive desktop and mobile layouts
 
 ## Run locally
@@ -29,7 +30,7 @@ The site uses only relative paths and works directly from the repository root. I
 
 ## PostHog setup
 
-At the beginning of `script.js`, replace the empty `POSTHOG_KEY` and `POSTHOG_HOST` values with the **Project API Key** and host shown in the PostHog project settings. Do not use a personal API key.
+The public PostHog Project API Key and ingestion host are shared from `posthog-config.js`. Do not use a personal API key.
 
 The prototype tracks page views plus:
 
@@ -40,6 +41,10 @@ The prototype tracks page views plus:
 - `booking_completed`
 
 Names, email addresses, phone numbers, and other personally identifying booking details are never included in PostHog event properties.
+
+## Assessment traffic simulator
+
+Open `traffic-simulator.html` to generate preset batches of 10 or 25 anonymous visitor journeys. The simulator sends the same event names and safe properties as the customer site, includes realistic funnel drop-off, and adds `assessment_simulation: true` so demo events can be identified. It never reads or changes the `abcTutoringBookings` local-storage data.
 
 ## Demo data
 

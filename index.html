@@ -10,6 +10,7 @@
     <title>ABC Tutoring | Find the right tutor</title>
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23f26f5b'/%3E%3Ctext x='32' y='39' text-anchor='middle' font-family='Georgia' font-size='22' fill='white'%3Eabc%3C/text%3E%3C/svg%3E" />
     <link rel="stylesheet" href="styles.css" />
+    <script src="posthog-config.js"></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -36,28 +37,34 @@
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">Personal K–12 tutoring</p>
+          <p class="eyebrow">K–12 tutoring · Middle school specialists</p>
           <h1 id="hero-title">A little support can spark a <em>big</em> breakthrough.</h1>
           <p class="hero-lede">
-            Meet patient, encouraging tutors who help students build skills, confidence,
-            and a genuine love of learning.
+            ABC Tutoring supports students across K–12, with a special focus on the
+            academic and confidence-building needs of middle schoolers.
           </p>
+          <div class="price-callout" aria-label="Tutoring rates range from 40 to 55 dollars per hour">
+            <strong>$40–$55</strong><span>per hour · clear pricing, no packages</span>
+          </div>
           <div class="hero-actions">
             <a class="button button-primary" href="#tutors">Find a Tutor</a>
             <a class="text-link" href="#how-it-works">See how booking works <span aria-hidden="true">→</span></a>
           </div>
           <ul class="trust-list" aria-label="ABC Tutoring highlights">
             <li><span aria-hidden="true">✓</span> Flexible scheduling</li>
-            <li><span aria-hidden="true">✓</span> Tutors from $40/hour</li>
+            <li><span aria-hidden="true">✓</span> Easy online booking</li>
             <li><span aria-hidden="true">✓</span> K–12 support</li>
           </ul>
         </div>
         <div class="hero-art">
           <div class="sun-doodle" aria-hidden="true">✦</div>
-          <div class="hero-note">
+          <div class="hero-note" aria-label="ABC Tutoring student support summary">
             <span class="note-pin" aria-hidden="true"></span>
-            <p>“I finally feel ready for my math test!”</p>
-            <span>— Maya, 7th grade</span>
+            <p>Built for the school years when confidence matters most.</p>
+            <div class="focus-stats">
+              <span><strong>K–12</strong> student support</span>
+              <span><strong>6–8</strong> primary grade focus</span>
+            </div>
           </div>
         </div>
       </section>
@@ -101,10 +108,12 @@
             chosen for both subject knowledge and the ability to make students feel at ease.
           </p>
         </div>
-        <div class="why-grid">
-          <article><span aria-hidden="true">01</span><h3>Right-fit tutors</h3><p>Browse real profiles and choose the personality and expertise that fit your student.</p></article>
-          <article><span aria-hidden="true">02</span><h3>Clear, simple pricing</h3><p>Rates are always visible. No packages, contracts, or surprise enrollment fees.</p></article>
-          <article><span aria-hidden="true">03</span><h3>Confidence first</h3><p>Patient, positive sessions help students ask questions and celebrate steady progress.</p></article>
+        <div class="why-grid trust-grid">
+          <article><span aria-hidden="true">✓</span><h3>Qualified tutors</h3><p>Experienced educators and subject specialists who know how to encourage learners.</p></article>
+          <article><span aria-hidden="true">✓</span><h3>K–12 support</h3><p>Thoughtful help at every grade, with deep experience supporting middle school students.</p></article>
+          <article><span aria-hidden="true">✓</span><h3>Flexible scheduling</h3><p>Specific after-school, evening, and weekend openings make planning easier.</p></article>
+          <article><span aria-hidden="true">✓</span><h3>Clear pricing</h3><p>Visible hourly rates from $40–$55, with no packages or surprise enrollment fees.</p></article>
+          <article><span aria-hidden="true">✓</span><h3>Easy online booking</h3><p>Choose a tutor, select an opening, and reserve a session in a few simple steps.</p></article>
         </div>
       </section>
 
@@ -147,12 +156,12 @@
       <section id="how-it-works" class="section booking-section" aria-labelledby="booking-title">
         <div>
           <p class="eyebrow">Booking is easy</p>
-          <h2 id="booking-title">From “we need help” to “we’ve got this.”</h2>
+          <h2 id="booking-title">Three simple steps to the right support.</h2>
         </div>
         <ol class="booking-steps">
-          <li><span>1</span><div><strong>Meet the tutors</strong><p>Filter by subject and grade, then explore each profile.</p></div></li>
-          <li><span>2</span><div><strong>Pick a time</strong><p>Choose a specific opening that fits your week.</p></div></li>
-          <li><span>3</span><div><strong>Book your session</strong><p>Share a few details and you’re all set.</p></div></li>
+          <li><span>1</span><div><strong>Find a tutor</strong><p>Filter by subject and grade, then explore each profile.</p></div></li>
+          <li><span>2</span><div><strong>Choose an available time</strong><p>Select a specific opening that fits your week.</p></div></li>
+          <li><span>3</span><div><strong>Confirm your session</strong><p>Share a few details and reserve your time.</p></div></li>
         </ol>
       </section>
     </main>
@@ -211,11 +220,15 @@
 
     <dialog id="confirmation-dialog" class="confirmation-dialog" aria-labelledby="confirmation-title">
       <div class="success-mark" aria-hidden="true">✓</div>
-      <p class="eyebrow">You’re booked!</p>
-      <h2 id="confirmation-title">A great session is on the calendar.</h2>
+      <p class="eyebrow">Session reserved</p>
+      <h2 id="confirmation-title">Your tutoring session is reserved.</h2>
+      <p class="confirmation-lede">Here’s a clear summary of your booking.</p>
       <div id="confirmation-details" class="confirmation-details"></div>
       <p class="confirmation-note">This is a prototype confirmation. No email or text message was sent.</p>
-      <button class="button button-primary" type="button" data-close-confirmation>Back to tutors</button>
+      <div class="confirmation-actions">
+        <button class="button button-primary" type="button" data-book-another>Book another session</button>
+        <button class="button button-ghost" type="button" data-close-confirmation>Done</button>
+      </div>
     </dialog>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
