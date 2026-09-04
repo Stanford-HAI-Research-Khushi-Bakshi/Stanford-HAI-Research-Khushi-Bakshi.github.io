@@ -4,7 +4,7 @@ A polished, responsive static prototype for a friendly K–12 tutoring service. 
 
 ## Features
 
-- Six sample tutors with specialties, qualifications, rates, grade levels, and availability
+- Ten sample tutors with specialties, qualifications, rates, grade levels, and availability
 - Subject and grade-level filtering
 - Accessible booking dialog with built-in form validation
 - Booking persistence in `localStorage`

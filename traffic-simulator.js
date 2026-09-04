@@ -7,9 +7,13 @@ const SIMULATED_TUTORS = [
   { name: "Elena Rodriguez", subjects: ["Science", "Math"], grades: "Grades 7–12", rate: 55, time: "2026-09-11 6:00 PM" },
   { name: "Samir Patel", subjects: ["Math", "Test Prep"], grades: "Grades 9–12", rate: 52, time: "2026-09-12 1:00 PM" },
   { name: "Grace Kim", subjects: ["English", "Test Prep"], grades: "Grades 6–12", rate: 50, time: "2026-09-16 5:30 PM" },
-  { name: "Theo Williams", subjects: ["Math", "Study Skills"], grades: "Grades K–8", rate: 40, time: "2026-09-14 4:00 PM" }
+  { name: "Theo Williams", subjects: ["Math", "Study Skills"], grades: "Grades K–8", rate: 40, time: "2026-09-14 4:00 PM" },
+  { name: "Aisha Rahman", subjects: ["History", "English"], grades: "Grades 6–12", rate: 46, time: "2026-09-17 4:30 PM" },
+  { name: "Lucas Martinez", subjects: ["Elementary Tutoring", "Math"], grades: "Grades K–5", rate: 43, time: "2026-09-20 10:00 AM" },
+  { name: "Priya Shah", subjects: ["SAT/College Prep", "English"], grades: "Grades 10–12", rate: 55, time: "2026-09-23 6:00 PM" },
+  { name: "Noah Bennett", subjects: ["Science", "History"], grades: "Grades 4–8", rate: 44, time: "2026-09-22 5:15 PM" }
 ];
-const SUBJECTS = ["Math", "English", "Science", "Test Prep", "Study Skills"];
+const SUBJECTS = ["Math", "English", "Science", "History", "Test Prep", "SAT/College Prep", "Study Skills", "Elementary Tutoring"];
 const GRADES = ["Elementary", "Middle School", "Middle School", "High School"];
 
 function initializePostHog() {

@@ -106,6 +106,74 @@ const tutors = [
       { date: "2026-09-12", time: "9:00 AM" },
       { date: "2026-09-14", time: "4:00 PM" }
     ]
+  },
+  {
+    id: "aisha-rahman",
+    name: "Aisha Rahman",
+    initials: "AR",
+    avatarClass: "avatar-coral",
+    subjects: ["History", "English"],
+    gradeBands: ["Middle School", "High School"],
+    gradeLabel: "Grades 6–12",
+    rate: 46,
+    qualification: "M.A. History · Former museum educator",
+    bio: "Aisha brings history to life through stories, primary sources, and clear writing plans. She helps students make strong connections instead of memorizing isolated dates.",
+    slots: [
+      { date: "2026-09-17", time: "4:30 PM" },
+      { date: "2026-09-19", time: "11:30 AM" },
+      { date: "2026-09-21", time: "5:00 PM" }
+    ]
+  },
+  {
+    id: "lucas-martinez",
+    name: "Lucas Martinez",
+    initials: "LM",
+    avatarClass: "avatar-mint",
+    subjects: ["Elementary Tutoring", "Math"],
+    gradeBands: ["Elementary"],
+    gradeLabel: "Grades K–5",
+    rate: 43,
+    qualification: "B.S. Elementary Education · Classroom teacher",
+    bio: "Lucas uses hands-on examples, games, and steady encouragement to support foundational math, reading, and homework routines for younger students.",
+    slots: [
+      { date: "2026-09-17", time: "3:15 PM" },
+      { date: "2026-09-20", time: "10:00 AM" },
+      { date: "2026-09-22", time: "4:00 PM" }
+    ]
+  },
+  {
+    id: "priya-shah",
+    name: "Priya Shah",
+    initials: "PS",
+    avatarClass: "avatar-lavender",
+    subjects: ["SAT/College Prep", "English"],
+    gradeBands: ["High School"],
+    gradeLabel: "Grades 10–12",
+    rate: 55,
+    qualification: "M.A. Education · College admissions coach",
+    bio: "Priya pairs practical SAT strategy with thoughtful essay coaching. She helps students create manageable plans and communicate their strengths with confidence.",
+    slots: [
+      { date: "2026-09-18", time: "5:30 PM" },
+      { date: "2026-09-20", time: "1:30 PM" },
+      { date: "2026-09-23", time: "6:00 PM" }
+    ]
+  },
+  {
+    id: "noah-bennett",
+    name: "Noah Bennett",
+    initials: "NB",
+    avatarClass: "avatar-sky",
+    subjects: ["Science", "History"],
+    gradeBands: ["Elementary", "Middle School"],
+    gradeLabel: "Grades 4–8",
+    rate: 44,
+    qualification: "B.A. Interdisciplinary Studies · 5 years tutoring",
+    bio: "Noah helps curious learners organize big ideas across science and social studies. His sessions mix simple visuals, discussion, and low-pressure review.",
+    slots: [
+      { date: "2026-09-18", time: "3:45 PM" },
+      { date: "2026-09-19", time: "9:30 AM" },
+      { date: "2026-09-22", time: "5:15 PM" }
+    ]
   }
 ];
 
