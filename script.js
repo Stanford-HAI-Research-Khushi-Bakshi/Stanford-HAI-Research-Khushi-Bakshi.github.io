@@ -1,7 +1,7 @@
-// PostHog configuration: replace these two empty strings with your project's
-// Project API Key and host. Do not use a PostHog personal API key here.
-const POSTHOG_KEY = "";
-const POSTHOG_HOST = "";
+// PostHog configuration uses the public Project API Key and ingestion host.
+// Never place a PostHog personal API key in this client-side file.
+const POSTHOG_KEY = "phc_vNsCKbNJaKWhFq6ZFZeog2MCeqMPXQxXtr3CUChtooyA";
+const POSTHOG_HOST = "https://us.i.posthog.com";
 
 const STORAGE_KEY = "abcTutoringBookings";
 
